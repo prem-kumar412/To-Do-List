@@ -1,119 +1,133 @@
-// Select DOM elements
-const addButton = document.querySelector('.add');
-const clearButton = document.querySelector('.clear');
-const textArea = document.querySelector('.txt-area');
-const taskList = document.querySelector('.task-list');
-const taskListItem = document.getElementsByClassName('.task-list-item');
+// Selectors
+const todoInput = document.querySelector('.todo-input'); // Select the input field for new todos
+const todoButton = document.querySelector('.todo-button'); // Select the button to add new todos
+const todoList = document.querySelector('.todo-list'); // Select the container for the todo list
+const filterOption = document.querySelector('.filter-todo'); // Select the filter dropdown
 
-// Array to store the list of task elements
-const list = [];
+// Event Listeners
+document.addEventListener('DOMContentLoaded', getTodos); // Load todos from local storage when DOM content is loaded
+todoButton.addEventListener('click', addTodo); // Add new todo on button click
+todoList.addEventListener('click', deleteCheck); // Handle delete and check actions on todo items
+filterOption.addEventListener('click', filterTodo); // Filter todos based on the selected option
 
-// Main function to add a task
-function main() {
-    // Create new elements for the task item
-    const listElement = document.createElement('li');
-    const taskContent = document.createElement('input');
-    const deleteElement = document.createElement('button');
-    const editButton = document.createElement('button');
-    const checkbox = document.createElement('input');
+// Functions
 
-    // Set attributes and class names for the new elements
-    taskContent.setAttribute('readonly', 'readonly');
-    checkbox.type = 'checkbox';
-    checkbox.className = 'checkbox';
-    listElement.className = 'task-list-item';
-    taskContent.className = 'task-content';
-    deleteElement.className = 'delete-button';
-    editButton.className = 'edit-button';
-    deleteElement.textContent = 'Delete';
-    editButton.textContent = 'Edit';
+function addTodo(event) {
+    // Prevent form from submitting
+    event.preventDefault();
 
-    // Check if the textarea has a value
-    if (!(textArea.value === '')) {
-        // Add the new task to the list and DOM
-        list.push(listElement);
-        taskList.appendChild(listElement);
-        listElement.appendChild(checkbox);
-        listElement.appendChild(taskContent);
-        listElement.appendChild(editButton);
-        listElement.appendChild(deleteElement);
-        taskContent.value = textArea.value;
-        
-        // Update the id of each list item
-        list.forEach(function(element, key) {
-            element.id = key;
-            taskList.appendChild(element);
+    // Create todo div
+    const todoDiv = document.createElement('div');
+    todoDiv.classList.add('todo');
+
+    // Create list item
+    const newTodo = document.createElement('li');
+    newTodo.innerText = todoInput.value; // Set the text of the new todo item
+    newTodo.classList.add('todo-item');
+    todoDiv.appendChild(newTodo);
+
+    // Add todo to local storage
+    saveLocalTodos(todoInput.value);
+
+    // Check mark button
+    const completedButton = document.createElement('button');
+    completedButton.innerHTML = '<i class="fas fa-check"></i>'; // Font Awesome check icon
+    completedButton.classList.add('complete-btn');
+    todoDiv.appendChild(completedButton);
+
+    // Trash button
+    const trashButton = document.createElement('button');
+    trashButton.innerHTML = '<i class="fas fa-trash"></i>'; // Font Awesome trash icon
+    trashButton.classList.add('trash-btn');
+    todoDiv.appendChild(trashButton);
+
+    // Append to list
+    todoList.appendChild(todoDiv);
+
+    // Clear todo input value
+    todoInput.value = '';
+}
+
+function deleteCheck(e) {
+    const item = e.target;
+
+    // Delete todo
+    if (item.classList[0] === 'trash-btn') {
+        const todo = item.parentElement;
+        todo.classList.add('fall'); // Add falling animation
+        removeLocalTodos(todo); // Remove todo from local storage
+        todo.addEventListener('transitionend', function() {
+            todo.remove(); // Remove todo from the DOM after animation ends
         });
-    } else {
-        return;
     }
 
-    // Clear the textarea and disable task content input
-    textArea.value = '';
-    taskContent.disabled = true;
+    // Check mark
+    if (item.classList[0] === 'complete-btn') {
+        const todo = item.parentElement;
+        todo.classList.toggle('completed'); // Toggle completed class
+    }
+}
 
-    // Add event listener for editing a task
-    editButton.addEventListener('click', function(event) {
-        event.preventDefault();
-
-        // Toggle between edit and save mode
-        if (editButton.textContent.toLocaleLowerCase() === 'edit') {
-            taskContent.disabled = false;
-            taskContent.removeAttribute('readonly');
-            taskContent.focus();
-            editButton.textContent = 'Save';
-        } else {
-            taskContent.setAttribute('readonly', 'readonly');
-            taskContent.disabled = true;
-            editButton.textContent = 'Edit';
-        }
-    });
-
-    // Add event listener for deleting a task
-    deleteElement.addEventListener('click', function(event) {
-        event.preventDefault();
-        const index = event.target.parentNode.id;
-        list.splice(index, 1);
-        this.parentElement.remove();
-
-        console.log(list);
-    });
-
-    // Add event listener for clearing completed tasks
-    clearButton.addEventListener('click', function(event) {
-        event.preventDefault();
-
-        const checkboxes = document.getElementsByClassName('checkbox');
-
-        // Remove tasks that are checked
-        for (let i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
-                checkboxes[i].parentElement.remove();
-                list.splice(list[i], 1);
-            }
+function filterTodo(e) {
+    const todos = todoList.childNodes;
+    todos.forEach(function(todo) {
+        switch (e.target.value) {
+            case 'all':
+                todo.style.display = 'flex'; // Show all todos
+                break;
+            case 'completed':
+                if (todo.classList.contains('completed')) {
+                    todo.style.display = 'flex'; // Show only completed todos
+                } else {
+                    todo.style.display = 'none'; // Hide uncompleted todos
+                }
+                break;
+            case 'uncompleted':
+                if (!todo.classList.contains('completed')) {
+                    todo.style.display = 'flex'; // Show only uncompleted todos
+                } else {
+                    todo.style.display = 'none'; // Hide completed todos
+                }
+                break;
         }
     });
 }
 
-// Add event listener for textarea to handle 'Enter' key press
-textArea.addEventListener('keydown', function(event) {
-    if (event.keyCode === 13) {
-        event.preventDefault();
-        // Limit the number of tasks to 7
-        if (list.length < 7) {
-            main();
-        } else {
-            console.log('task list is full!');
-        }
-    }
-});
+// Local storage functions
+function saveLocalTodos(todo) {
+    let todos = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : []; // Get todos from local storage or initialize as empty array
+    todos.push(todo); // Add new todo to the array
+    localStorage.setItem('todos', JSON.stringify(todos)); // Save updated array to local storage
+}
 
-// Add event listener for the add button
-addButton.addEventListener('click', function() {
-    // Limit the number of tasks to 7
-    if (list.length < 7) {
-        main();
-    } else {
-        console.log('task list is full!');
-    }
-});
+function getTodos() {
+    let todos = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : []; // Get todos from local storage or initialize as empty array
+    todos.forEach(function(todo) {
+        const todoDiv = document.createElement('div');
+        todoDiv.classList.add('todo');
+        
+        const newTodo = document.createElement('li');
+        newTodo.innerText = todo; // Set the text of the todo item
+        newTodo.classList.add('todo-item');
+        todoDiv.appendChild(newTodo);
+
+        const completedButton = document.createElement('button');
+        completedButton.innerHTML = '<i class="fas fa-check"></i>'; // Font Awesome check icon
+        completedButton.classList.add('complete-btn');
+        todoDiv.appendChild(completedButton);
+
+        const trashButton = document.createElement('button');
+        trashButton.innerHTML = '<i class="fas fa-trash"></i>'; // Font Awesome trash icon
+        trashButton.classList.add('trash-btn');
+        todoDiv.appendChild(trashButton);
+
+        todoList.appendChild(todoDiv); // Append todo to the list
+    });
+}
+
+function removeLocalTodos(todo) {
+    let todos = localStorage.getItem('todos') ? JSON.parse(localStorage.getItem('todos')) : []; // Get todos from local storage or initialize as empty array
+    const todoIndex = todo.children[0].innerText; // Get the text of the todo item
+    todos.splice(todos.indexOf(todoIndex), 1); // Remove todo from the array
+    localStorage.setItem('todos', JSON.stringify(todos)); // Save updated array to local storage
+}

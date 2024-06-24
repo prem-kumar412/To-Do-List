@@ -24,7 +24,7 @@ Make sure you have the following installed:
 1. **Clone the Repository:**
 
    ```bash
-   git clone git@github.com:abdellatif-laghjaj/todo-list.git
+   https://github.com/prem-kumar412/To-Do-List.git
    ```
 
 2. **Navigate to the Project Directory:**

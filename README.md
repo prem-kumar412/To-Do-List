@@ -46,7 +46,6 @@ The project follows a modular and organized structure to enhance readability, ma
 - **CSS (`style.css`):** Styles to define the appearance of the web page.
 - **JavaScript (`script.js`):** Logic for handling user interactions, managing tasks, and implementing theme switching.
 
-  ##  Deployment
+##  Deployment
 
-The TO-DOIT App is deployed and accessible online. You can use the following link to access the application: [TO-DOIT][ https://prem-kumar412.github.io/To-Do-List/)
-
+The TO-DOIT App is deployed and accessible online. You can use the following link to access the application: [To-Do-List](https://prem-kumar412.github.io/To-Do-List/)

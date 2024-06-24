@@ -1,43 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Meta tags for character set and compatibility -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+
+    <!-- Link to Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.css">
+    <!-- Link to Google Fonts for custom font -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet"/>
     <!-- Link to external CSS stylesheet -->
     <link rel="stylesheet" href="style.css">
-    <title>To-Do List</title>
+    <!-- Link to favicon -->
+    <link rel="icon" href="./favicon/javascript.png">
 </head>
 <body>
-    <!-- Main container for the to-do list application -->
-    <div class="todo-list">
-        <!-- Header section containing the title, input form, and add button -->
-        <header>
-            <h1 class="title">To-Do List</h1>
-            <!-- Form containing the input field for adding new tasks -->
-            <form action="">
-                <input type="text" class="txt-area" maxlength="20">
-            </form>
-            <!-- Button to add new tasks -->
-            <button class="add">Add task</button>
-        </header>
+    <!-- Header section -->
+    <header>
+        <h1>Todo List</h1>
+    </header>
 
-        <!-- Main section containing the task list -->
-        <main>
-            <div>
-                <!-- Unordered list where tasks will be appended -->
-                <ul class="task-list"></ul>
-            </div>
-        </main>
+    <!-- Form for adding new to-do items -->
+    <form>
+        <!-- Input field for to-do item text -->
+        <input type="text" class="todo-input" maxlength="20">
+        <!-- Button to submit new to-do item -->
+        <button class="todo-button" type="submit">
+            <i class="fas fa-plus-square"></i> <!-- Font Awesome icon for the button -->
+        </button>
+        <!-- Dropdown for filtering to-do items -->
+        <div class="select">
+            <select name="todos" class="filter-todo">
+                <option value="all">All</option>
+                <option value="completed">Completed</option>
+                <option value="uncompleted">Uncompleted</option>
+            </select>
+        </div>
+    </form>
 
-        <!-- Footer section containing the clear button -->
-        <footer>
-            <!-- Button to clear selected tasks -->
-            <button class="clear">Clear selected</button>
-        </footer>
+    <!-- Container for the to-do list items -->
+    <div class="todo-container">
+        <ul class="todo-list"></ul> <!-- Unordered list for dynamically added to-do items -->
     </div>
-    
+
     <!-- Link to external JavaScript file -->
     <script src="script.js"></script>
 </body>

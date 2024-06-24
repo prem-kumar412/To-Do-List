@@ -1,0 +1,158 @@
+/* Universal selector to reset margin, padding, and box-sizing for all elements */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+/* Styling for the body to center content and set background color */
+body {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(246, 217, 217);
+}
+
+/* Styling for the heading (h1) */
+h1 {
+    color: rgb(76, 76, 60);
+}
+
+/* Main container styling for the to-do list */
+.todo-list {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+    background-color: #f9f1f4;
+    border-radius: 6px;
+}
+
+/* Header section styling */
+.todo-list header {
+    height: 20%;
+    width: 100%;
+    text-align: center;
+}
+
+/* Styling for the input field in the header */
+.todo-list header input {
+    padding: 5px;
+    font-size: 1rem;
+    width: 15em;
+    text-align: center;
+}
+
+/* Footer section styling */
+.todo-list footer {
+    height: 10%;
+    width: 100%;
+}
+
+/* Styling for the clear button to position it */
+.clear {
+    transform: translate(50%, 10%);
+}
+
+/* Common styling for both clear and add buttons */
+.clear,
+.add {
+    padding: 8px;
+    margin: 6px;
+    border-radius: 5px;
+    font-size: 1rem;
+    border: none;
+    color: rgb(76, 76, 60);
+    background-color: #FFC107;
+}
+
+/* Main section styling for the task list */
+.todo-list main {
+    height: 60%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+/* Styling for each list item (task) */
+.todo-list main li {
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-decoration: none;
+}
+
+/* Common styling for buttons within the task list */
+.todo-list main button {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    z-index: 2;
+}
+
+/* Specific styling for the edit button */
+.edit-button {
+    background-color: rgb(0, 117, 255);
+}
+
+/* Specific styling for the delete button */
+.delete-button {
+    background-color: red;
+}
+
+/* Styling for the task content input field */
+.task-content {
+    width: 12em;
+    padding: 5px;
+    border: none;
+    background-color: rgb(246, 217, 217);
+    font-size: .85rem;
+}
+
+/* Styling for the task list item container */
+.task-list-item {
+    height: 3em;
+    background-color: rgb(121 85 72 / 41%);
+}
+
+/* Styling for the checkbox within each task list item */
+.checkbox {
+    height: 20px;
+    width: 20px;
+}
+
+/* Responsive design for screens with a minimum width of 640px */
+@media(min-width: 640px) {
+    .todo-list {
+        height: 95%;
+        width: 80%;
+    }
+    .todo-list header {
+        height: 30%;
+    }
+}
+
+/* Responsive design for screens with a minimum width of 800px */
+@media(min-width: 800px) {
+    .todo-list {
+        height: 90%;
+        width: 80%;
+    }
+}
+
+/* Responsive design for screens with a minimum width of 1024px */
+@media(min-width: 1024px) {
+    .todo-list {
+        height: 90%;
+        width: 60%;
+    }
+}    

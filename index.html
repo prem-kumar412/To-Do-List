@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta tags for character set and compatibility -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Link to external CSS stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    <title>To-Do List</title>
+</head>
+<body>
+    <!-- Main container for the to-do list application -->
+    <div class="todo-list">
+        <!-- Header section containing the title, input form, and add button -->
+        <header>
+            <h1 class="title">To-Do List</h1>
+            <!-- Form containing the input field for adding new tasks -->
+            <form action="">
+                <input type="text" class="txt-area" maxlength="20">
+            </form>
+            <!-- Button to add new tasks -->
+            <button class="add">Add task</button>
+        </header>
+
+        <!-- Main section containing the task list -->
+        <main>
+            <div>
+                <!-- Unordered list where tasks will be appended -->
+                <ul class="task-list"></ul>
+            </div>
+        </main>
+
+        <!-- Footer section containing the clear button -->
+        <footer>
+            <!-- Button to clear selected tasks -->
+            <button class="clear">Clear selected</button>
+        </footer>
+    </div>
+    
+    <!-- Link to external JavaScript file -->
+    <script src="script.js"></script>
+</body>
+</html>

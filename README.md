@@ -48,5 +48,5 @@ The project follows a modular and organized structure to enhance readability, ma
 
   ##  Deployment
 
-The TO-DOIT App is deployed and accessible online. You can use the following link to access the application: [ https://prem-kumar412.github.io/To-Do-List/)
+The TO-DOIT App is deployed and accessible online. You can use the following link to access the application: [TO-DOIT][ https://prem-kumar412.github.io/To-Do-List/)
 
